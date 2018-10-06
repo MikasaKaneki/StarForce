@@ -39,9 +39,9 @@ namespace StarForce.Editor
         }
 
         private Vector2 m_DeviceModelTablePosition = Vector2.zero;
-        private FieldInfo m_DeviceNameCellField = typeof(DeviceModel).GetField("m_DeviceName", BindingFlags.NonPublic | BindingFlags.Instance);
-        private FieldInfo m_ModelNameCellField = typeof(DeviceModel).GetField("m_ModelName", BindingFlags.NonPublic | BindingFlags.Instance);
-        private FieldInfo m_QualityLevelCellField = typeof(DeviceModel).GetField("m_QualityLevel", BindingFlags.NonPublic | BindingFlags.Instance);
+        private readonly FieldInfo m_DeviceNameCellField = typeof(DeviceModel).GetField("m_DeviceName", BindingFlags.NonPublic | BindingFlags.Instance);
+        private readonly FieldInfo m_ModelNameCellField = typeof(DeviceModel).GetField("m_ModelName", BindingFlags.NonPublic | BindingFlags.Instance);
+        private readonly FieldInfo m_QualityLevelCellField = typeof(DeviceModel).GetField("m_QualityLevel", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private void OnDeviceModelGUI()
         {
@@ -49,7 +49,7 @@ namespace StarForce.Editor
 
             DrawHeader();
 
-            m_DeviceModelTablePosition = EditorGUILayout.BeginScrollView(m_DeviceModelTablePosition, GUILayout.Width(this.position.width));
+            m_DeviceModelTablePosition = EditorGUILayout.BeginScrollView(m_DeviceModelTablePosition, GUILayout.Width(position.width));
 
             int deleteIndex = -1;
 
