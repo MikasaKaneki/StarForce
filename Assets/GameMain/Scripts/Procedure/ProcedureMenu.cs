@@ -22,7 +22,7 @@ namespace StarForce
             m_StartGame = true;
         }
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        protected internal override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -32,7 +32,7 @@ namespace StarForce
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
 
-        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        protected internal override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
 
@@ -45,7 +45,7 @@ namespace StarForce
             }
         }
 
-        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected internal override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 

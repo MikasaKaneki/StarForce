@@ -22,7 +22,7 @@ namespace StarForce
             }
         }
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        protected internal override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -65,7 +65,7 @@ namespace StarForce
             m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 
-        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        protected internal override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
@@ -75,7 +75,7 @@ namespace StarForce
             base.OnLeave(procedureOwner, isShutdown);
         }
 
-        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected internal override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 

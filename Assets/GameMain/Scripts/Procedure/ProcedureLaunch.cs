@@ -16,7 +16,7 @@ namespace StarForce
             }
         }
 
-        protected override void OnEnter(ProcedureOwner procedureOwner)
+        protected internal override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -40,7 +40,7 @@ namespace StarForce
             GameEntry.BuiltinData.InitDefaultDictionary();
         }
 
-        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected internal override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
