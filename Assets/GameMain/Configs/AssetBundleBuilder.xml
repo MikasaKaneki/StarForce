@@ -2,12 +2,8 @@
 <UnityGameFramework>
   <AssetBundleBuilder>
     <Settings>
-      <InternalResourceVersion>0</InternalResourceVersion>
-      <WindowsSelected>True</WindowsSelected>
-      <MacOSXSelected>False</MacOSXSelected>
-      <IOSSelected>False</IOSSelected>
-      <AndroidSelected>False</AndroidSelected>
-      <WindowsStoreSelected>False</WindowsStoreSelected>
+      <InternalResourceVersion>1</InternalResourceVersion>
+      <Platforms>130</Platforms>
       <ZipSelected>True</ZipSelected>
       <RecordScatteredDependencyAssetsSelected>False</RecordScatteredDependencyAssetsSelected>
       <UncompressedAssetBundleSelected>False</UncompressedAssetBundleSelected>
@@ -18,7 +14,7 @@
       <AppendHashToAssetBundleNameSelected>False</AppendHashToAssetBundleNameSelected>
       <ChunkBasedCompressionSelected>True</ChunkBasedCompressionSelected>
       <BuildEventHandlerTypeName>StarForce.Editor.StarForceBuildEventHandler</BuildEventHandlerTypeName>
-      <OutputDirectory></OutputDirectory>
+      <OutputDirectory>C:/Users/mojin/Desktop/StarForce</OutputDirectory>
     </Settings>
   </AssetBundleBuilder>
 </UnityGameFramework>

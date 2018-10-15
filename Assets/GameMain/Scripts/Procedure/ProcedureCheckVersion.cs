@@ -1,5 +1,6 @@
 ﻿using GameFramework;
 using GameFramework.Event;
+using GameFramework.Resource;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -12,10 +13,7 @@ namespace StarForce
 
         public override bool UseNativeDialog
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         protected internal override void OnEnter(ProcedureOwner procedureOwner)
@@ -38,7 +36,8 @@ namespace StarForce
             base.OnLeave(procedureOwner, isShutdown);
         }
 
-        protected internal override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected internal override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds,
+            float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
@@ -77,8 +76,10 @@ namespace StarForce
             string screenHeight = Screen.height.ToString();
             string screenDpi = Screen.dpi.ToString();
             string screenOrientation = Screen.orientation.ToString();
-            string screenResolution = string.Format("{0} x {1} @ {2}Hz", Screen.currentResolution.width.ToString(), Screen.currentResolution.height.ToString(), Screen.currentResolution.refreshRate.ToString());
-            string useWifi = (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork).ToString();
+            string screenResolution = string.Format("{0} x {1} @ {2}Hz", Screen.currentResolution.width.ToString(),
+                Screen.currentResolution.height.ToString(), Screen.currentResolution.refreshRate.ToString());
+            string useWifi = (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork)
+                .ToString();
 
             WWWForm wwwForm = new WWWForm();
             wwwForm.AddField("DeviceId", WebUtility.EscapeString(deviceId));
@@ -109,7 +110,7 @@ namespace StarForce
 
         private void OnWebRequestSuccess(object sender, GameEventArgs e)
         {
-            WebRequestSuccessEventArgs ne = (WebRequestSuccessEventArgs)e;
+            WebRequestSuccessEventArgs ne = (WebRequestSuccessEventArgs) e;
             if (ne.UserData != this)
             {
                 return;
@@ -123,10 +124,12 @@ namespace StarForce
                 return;
             }
 
-            Log.Info("Latest game version is '{0}', local game version is '{1}'.", versionInfo.LatestGameVersion, Version.GameVersion);
+            Log.Info("Latest game version is '{0}', local game version is '{1}'.", versionInfo.LatestGameVersion,
+                Version.GameVersion);
 
             if (versionInfo.ForceGameUpdate)
             {
+                /*****
                 GameEntry.UI.OpenDialog(new DialogParams
                 {
                     Mode = 2,
@@ -136,7 +139,24 @@ namespace StarForce
                     OnClickConfirm = delegate (object userData) { Application.OpenURL(versionInfo.GameUpdateUrl); },
                     CancelText = GameEntry.Localization.GetString("ForceUpdate.QuitButton"),
                     OnClickCancel = delegate (object userData) { UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit); },
-                });
+                }); 
+                ***/
+
+
+                GameEntry.Resource.UpdatePrefixUri = versionInfo.GameUpdateUrl;
+                GameEntry.Resource.UpdateVersionList(versionInfo.VersionListLength, versionInfo.VersionListHashCode,
+                    versionInfo.VersionListZipLength, versionInfo.VersionListZipHashCode,
+                    new UpdateVersionListCallbacks((path, uri) =>
+                    {
+                        Log.Info("更新资源列表成功 path is '{0}',uri is '{1}'", path, uri);
+
+                        GameEntry.Resource.CheckResources((resources, count, updateCount, length, zipLength) =>
+                        {
+                            Log.Info(
+                                "检查资源成功的回调 resources is '{0}',count is '{1}',updateCount is '{2}',length is '{3}',zipLength is '{4}'");
+                            OnInitResourcesComplete();
+                        });
+                    }, (uri, message) => { Log.Error("更新资源成功 uri is '{0}',message is '{1}'", uri, message); }));
 
                 return;
             }
@@ -146,7 +166,7 @@ namespace StarForce
 
         private void OnWebRequestFailure(object sender, GameEventArgs e)
         {
-            WebRequestFailureEventArgs ne = (WebRequestFailureEventArgs)e;
+            WebRequestFailureEventArgs ne = (WebRequestFailureEventArgs) e;
             if (ne.UserData != this)
             {
                 return;
